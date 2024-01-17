@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PCModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="PCEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="sysdiagrams" EntityType="PCModel.sysdiagrams" />
+    <EntitySet Name="trn_kanban_loss_comment" EntityType="PCModel.trn_kanban_loss_comment" />
+    <EntitySet Name="trn_kanban_loss_summary" EntityType="PCModel.trn_kanban_loss_summary" />
+    <EntitySet Name="trn_kanban_machine_planned_loss" EntityType="PCModel.trn_kanban_machine_planned_loss" />
+    <EntitySet Name="trn_kanban_machine_size_info" EntityType="PCModel.trn_kanban_machine_size_info" />
+    <EntitySet Name="trn_kanban_productivity" EntityType="PCModel.trn_kanban_productivity" />
+    <EntitySet Name="RawData" EntityType="PCModel.RawData" />
+    <EntitySet Name="trn_shipping_AKO_Info" EntityType="PCModel.trn_shipping_AKO_Info" />
+    <EntitySet Name="UsedRawData" EntityType="PCModel.UsedRawData" />
+  </EntityContainer>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="trn_kanban_loss_comment">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Guid" Nullable="false" />
+    <Property Name="loss_id" Type="Guid" />
+    <Property Name="department_id" Type="Int32" />
+    <Property Name="comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="created_by" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+    <Property Name="created_at" Type="DateTime" Precision="3" />
+    <Property Name="updated_by" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+    <Property Name="updated_at" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="trn_kanban_loss_summary">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Guid" Nullable="false" />
+    <Property Name="factory_date" Type="DateTime" Precision="0" />
+    <Property Name="unit_id" Type="Byte" />
+    <Property Name="process_id" Type="Byte" />
+    <Property Name="mc_id" Type="Byte" />
+    <Property Name="loss_name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="loss_time" Type="Int32" />
+    <Property Name="loss_percent" Type="Decimal" Precision="18" Scale="3" />
+    <Property Name="created_by" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+    <Property Name="created_at" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="trn_kanban_machine_planned_loss">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Guid" Nullable="false" />
+    <Property Name="factory_date" Type="DateTime" Precision="0" />
+    <Property Name="unit_id" Type="Int32" />
+    <Property Name="mc_no" Type="Int32" />
+    <Property Name="size_code" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
+    <Property Name="loss_time" Type="Int32" />
+    <Property Name="created_by" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+    <Property Name="created_at" Type="DateTime" Precision="3" />
+    <Property Name="updated_by" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+    <Property Name="updated_at" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="trn_kanban_machine_size_info">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Guid" Nullable="false" />
+    <Property Name="factory_date" Type="DateTime" Precision="0" />
+    <Property Name="unit_id" Type="Byte" />
+    <Property Name="mc_no" Type="Byte" />
+    <Property Name="cycle_time" Type="Int32" />
+    <Property Name="size_code" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
+    <Property Name="tire_qty" Type="Int32" />
+    <Property Name="created_by" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+    <Property Name="created_at" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="trn_kanban_productivity">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Guid" Nullable="false" />
+    <Property Name="factory_date" Type="DateTime" Precision="0" />
+    <Property Name="unit_id" Type="Byte" />
+    <Property Name="mc_id" Type="Byte" />
+    <Property Name="building_productivity" Type="Decimal" Precision="5" Scale="2" />
+    <Property Name="curing_productivity" Type="Decimal" Precision="5" Scale="2" />
+    <Property Name="cycle_time" Type="Decimal" Precision="5" Scale="2" />
+    <Property Name="created_by" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+    <Property Name="created_at" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="RawData">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TransferDate" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="four_code" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+    <Property Name="UnitWeight" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+  </EntityType>
+  <EntityType Name="trn_shipping_AKO_Info">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="CONSIGNEE_NAME" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="LOADING_DATE" Type="DateTime" Precision="0" />
+    <Property Name="SHIPPING_INS_NO" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="CONSIGNEE_NAME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DOCK_NO" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+    <Property Name="STORE_YEAR_WEEK" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
+    <Property Name="FACTORY_PART_NO6" Type="String" MaxLength="7" FixedLength="false" Unicode="false" />
+    <Property Name="PRODUCT_NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="MARKET_NM" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="TICKET_NO" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
+    <Property Name="TIRE_BC" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+    <Property Name="VEHICLE_NUMBER" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="LOADING_TIME" Type="DateTime" Precision="3" />
+    <Property Name="LOADING_WORKER" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+    <Property Name="EANCODE" Type="String" MaxLength="13" FixedLength="true" Unicode="false" />
+    <Property Name="PRODUCTDATE" Type="DateTime" Precision="3" />
+    <Property Name="WEIGHT" Type="Int32" />
+    <Property Name="GAUGE" Type="Int32" />
+    <Property Name="SEND_FLG" Type="Byte" />
+    <Property Name="CREATED_BY" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="CREATED_AT" Type="DateTime" Precision="3" />
+    <Property Name="UPDATED_BY" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="UPDATED_AT" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="UsedRawData">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FactoryDate" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="MaterialCode" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+    <Property Name="TotalWeight" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+  </EntityType>
+</Schema>

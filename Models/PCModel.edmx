@@ -1,0 +1,522 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="PCModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'PC.dbo.RawData' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="RawData">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TransferDate" Type="nchar" MaxLength="10" />
+          <Property Name="four_code" Type="varchar" MaxLength="4" />
+          <Property Name="UnitWeight" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="trn_kanban_loss_comment">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="loss_id" Type="uniqueidentifier" />
+          <Property Name="department_id" Type="int" />
+          <Property Name="comment" Type="nvarchar(max)" />
+          <Property Name="created_by" Type="char" MaxLength="10" />
+          <Property Name="created_at" Type="datetime" />
+          <Property Name="updated_by" Type="char" MaxLength="10" />
+          <Property Name="updated_at" Type="datetime" />
+        </EntityType>
+        <EntityType Name="trn_kanban_loss_summary">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="factory_date" Type="date" />
+          <Property Name="unit_id" Type="tinyint" />
+          <Property Name="process_id" Type="tinyint" />
+          <Property Name="mc_id" Type="tinyint" />
+          <Property Name="loss_name" Type="nvarchar" MaxLength="255" />
+          <Property Name="loss_time" Type="int" />
+          <Property Name="loss_percent" Type="numeric" Precision="18" Scale="3" />
+          <Property Name="created_by" Type="char" MaxLength="10" />
+          <Property Name="created_at" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'PC.dbo.trn_kanban_machine_avg_cycle_time' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="trn_kanban_machine_avg_cycle_time">
+          <Property Name="id" Type="uniqueidentifier" />
+          <Property Name="factory_date" Type="date" />
+          <Property Name="unit_id" Type="tinyint" />
+          <Property Name="mc_no" Type="tinyint" />
+          <Property Name="avg_cycle_time" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="created_by" Type="char" MaxLength="10" />
+          <Property Name="created_at" Type="datetime" />
+        </EntityType>-->
+        <EntityType Name="trn_kanban_machine_planned_loss">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="factory_date" Type="date" />
+          <Property Name="unit_id" Type="int" />
+          <Property Name="mc_no" Type="int" />
+          <Property Name="size_code" Type="char" MaxLength="5" />
+          <Property Name="loss_time" Type="int" />
+          <Property Name="created_by" Type="char" MaxLength="10" />
+          <Property Name="created_at" Type="datetime" />
+          <Property Name="updated_by" Type="char" MaxLength="10" />
+          <Property Name="updated_at" Type="datetime" />
+        </EntityType>
+        <EntityType Name="trn_kanban_machine_size_info">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="factory_date" Type="date" />
+          <Property Name="unit_id" Type="tinyint" />
+          <Property Name="mc_no" Type="tinyint" />
+          <Property Name="cycle_time" Type="int" />
+          <Property Name="size_code" Type="char" MaxLength="5" />
+          <Property Name="tire_qty" Type="int" />
+          <Property Name="created_by" Type="char" MaxLength="10" />
+          <Property Name="created_at" Type="datetime" />
+        </EntityType>
+        <EntityType Name="trn_kanban_productivity">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="factory_date" Type="date" />
+          <Property Name="unit_id" Type="tinyint" />
+          <Property Name="mc_id" Type="tinyint" />
+          <Property Name="building_productivity" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="curing_productivity" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="cycle_time" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="created_by" Type="char" MaxLength="10" />
+          <Property Name="created_at" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'PC.dbo.trn_loadingQuantity' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="trn_loadingQuantity">
+          <Property Name="Id" Type="uniqueidentifier" />
+          <Property Name="factoryDate" Type="date" />
+          <Property Name="targetTime" Type="char" MaxLength="12" />
+          <Property Name="tireCount" Type="int" />
+          <Property Name="created_by" Type="char" MaxLength="10" />
+          <Property Name="created_at" Type="datetime" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'PC.dbo.trn_shipping_AKO_Info' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="trn_shipping_AKO_Info">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="CONSIGNEE_NAME" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LOADING_DATE" Type="date" />
+          <Property Name="SHIPPING_INS_NO" Type="varchar" MaxLength="30" />
+          <Property Name="CONSIGNEE_NAME" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DOCK_NO" Type="char" MaxLength="2" />
+          <Property Name="STORE_YEAR_WEEK" Type="char" MaxLength="4" />
+          <Property Name="FACTORY_PART_NO6" Type="varchar" MaxLength="7" />
+          <Property Name="PRODUCT_NAME" Type="nvarchar" MaxLength="200" />
+          <Property Name="MARKET_NM" Type="nvarchar" MaxLength="50" />
+          <Property Name="TICKET_NO" Type="varchar" MaxLength="9" />
+          <Property Name="TIRE_BC" Type="varchar" MaxLength="8" />
+          <Property Name="VEHICLE_NUMBER" Type="varchar" MaxLength="25" />
+          <Property Name="LOADING_TIME" Type="datetime" />
+          <Property Name="LOADING_WORKER" Type="varchar" MaxLength="8" />
+          <Property Name="EANCODE" Type="char" MaxLength="13" />
+          <Property Name="PRODUCTDATE" Type="datetime" />
+          <Property Name="WEIGHT" Type="int" />
+          <Property Name="GAUGE" Type="int" />
+          <Property Name="SEND_FLG" Type="tinyint" />
+          <Property Name="CREATED_BY" Type="varchar" MaxLength="10" />
+          <Property Name="CREATED_AT" Type="datetime" />
+          <Property Name="UPDATED_BY" Type="varchar" MaxLength="10" />
+          <Property Name="UPDATED_AT" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'PC.dbo.UsedRawData' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="UsedRawData">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FactoryDate" Type="nchar" MaxLength="10" />
+          <Property Name="MaterialCode" Type="varchar" MaxLength="4" />
+          <Property Name="TotalWeight" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityContainer Name="PCModelStoreContainer">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="trn_kanban_loss_comment" EntityType="Self.trn_kanban_loss_comment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="trn_kanban_loss_summary" EntityType="Self.trn_kanban_loss_summary" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="trn_kanban_machine_planned_loss" EntityType="Self.trn_kanban_machine_planned_loss" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="trn_kanban_machine_size_info" EntityType="Self.trn_kanban_machine_size_info" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="trn_kanban_productivity" EntityType="Self.trn_kanban_productivity" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RawData" EntityType="Self.RawData" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [RawData].[id] AS [id], 
+    [RawData].[TransferDate] AS [TransferDate], 
+    [RawData].[four_code] AS [four_code], 
+    [RawData].[UnitWeight] AS [UnitWeight]
+    FROM [dbo].[RawData] AS [RawData]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="trn_shipping_AKO_Info" EntityType="Self.trn_shipping_AKO_Info" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [trn_shipping_AKO_Info].[id] AS [id], 
+    [trn_shipping_AKO_Info].[LOADING_DATE] AS [LOADING_DATE], 
+    [trn_shipping_AKO_Info].[SHIPPING_INS_NO] AS [SHIPPING_INS_NO], 
+    [trn_shipping_AKO_Info].[CONSIGNEE_NAME] AS [CONSIGNEE_NAME], 
+    [trn_shipping_AKO_Info].[DOCK_NO] AS [DOCK_NO], 
+    [trn_shipping_AKO_Info].[STORE_YEAR_WEEK] AS [STORE_YEAR_WEEK], 
+    [trn_shipping_AKO_Info].[FACTORY_PART_NO6] AS [FACTORY_PART_NO6], 
+    [trn_shipping_AKO_Info].[PRODUCT_NAME] AS [PRODUCT_NAME], 
+    [trn_shipping_AKO_Info].[MARKET_NM] AS [MARKET_NM], 
+    [trn_shipping_AKO_Info].[TICKET_NO] AS [TICKET_NO], 
+    [trn_shipping_AKO_Info].[TIRE_BC] AS [TIRE_BC], 
+    [trn_shipping_AKO_Info].[VEHICLE_NUMBER] AS [VEHICLE_NUMBER], 
+    [trn_shipping_AKO_Info].[LOADING_TIME] AS [LOADING_TIME], 
+    [trn_shipping_AKO_Info].[LOADING_WORKER] AS [LOADING_WORKER], 
+    [trn_shipping_AKO_Info].[EANCODE] AS [EANCODE], 
+    [trn_shipping_AKO_Info].[PRODUCTDATE] AS [PRODUCTDATE], 
+    [trn_shipping_AKO_Info].[WEIGHT] AS [WEIGHT], 
+    [trn_shipping_AKO_Info].[GAUGE] AS [GAUGE], 
+    [trn_shipping_AKO_Info].[SEND_FLG] AS [SEND_FLG], 
+    [trn_shipping_AKO_Info].[CREATED_BY] AS [CREATED_BY], 
+    [trn_shipping_AKO_Info].[CREATED_AT] AS [CREATED_AT], 
+    [trn_shipping_AKO_Info].[UPDATED_BY] AS [UPDATED_BY], 
+    [trn_shipping_AKO_Info].[UPDATED_AT] AS [UPDATED_AT]
+    FROM [dbo].[trn_shipping_AKO_Info] AS [trn_shipping_AKO_Info]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="UsedRawData" EntityType="Self.UsedRawData" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [UsedRawData].[id] AS [id], 
+    [UsedRawData].[FactoryDate] AS [FactoryDate], 
+    [UsedRawData].[MaterialCode] AS [MaterialCode], 
+    [UsedRawData].[TotalWeight] AS [TotalWeight]
+    FROM [dbo].[UsedRawData] AS [UsedRawData]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PCModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="PCEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sysdiagrams" EntityType="PCModel.sysdiagrams" />
+          <EntitySet Name="trn_kanban_loss_comment" EntityType="PCModel.trn_kanban_loss_comment" />
+          <EntitySet Name="trn_kanban_loss_summary" EntityType="PCModel.trn_kanban_loss_summary" />
+          <EntitySet Name="trn_kanban_machine_planned_loss" EntityType="PCModel.trn_kanban_machine_planned_loss" />
+          <EntitySet Name="trn_kanban_machine_size_info" EntityType="PCModel.trn_kanban_machine_size_info" />
+          <EntitySet Name="trn_kanban_productivity" EntityType="PCModel.trn_kanban_productivity" />
+          <EntitySet Name="RawData" EntityType="PCModel.RawData" />
+          <EntitySet Name="trn_shipping_AKO_Info" EntityType="PCModel.trn_shipping_AKO_Info" />
+          <EntitySet Name="UsedRawData" EntityType="PCModel.UsedRawData" />
+        </EntityContainer>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="trn_kanban_loss_comment">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Guid" Nullable="false" />
+          <Property Name="loss_id" Type="Guid" />
+          <Property Name="department_id" Type="Int32" />
+          <Property Name="comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="created_by" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="created_at" Type="DateTime" Precision="3" />
+          <Property Name="updated_by" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="updated_at" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="trn_kanban_loss_summary">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Guid" Nullable="false" />
+          <Property Name="factory_date" Type="DateTime" Precision="0" />
+          <Property Name="unit_id" Type="Byte" />
+          <Property Name="process_id" Type="Byte" />
+          <Property Name="mc_id" Type="Byte" />
+          <Property Name="loss_name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="loss_time" Type="Int32" />
+          <Property Name="loss_percent" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="created_by" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="created_at" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="trn_kanban_machine_planned_loss">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Guid" Nullable="false" />
+          <Property Name="factory_date" Type="DateTime" Precision="0" />
+          <Property Name="unit_id" Type="Int32" />
+          <Property Name="mc_no" Type="Int32" />
+          <Property Name="size_code" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
+          <Property Name="loss_time" Type="Int32" />
+          <Property Name="created_by" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="created_at" Type="DateTime" Precision="3" />
+          <Property Name="updated_by" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="updated_at" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="trn_kanban_machine_size_info">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Guid" Nullable="false" />
+          <Property Name="factory_date" Type="DateTime" Precision="0" />
+          <Property Name="unit_id" Type="Byte" />
+          <Property Name="mc_no" Type="Byte" />
+          <Property Name="cycle_time" Type="Int32" />
+          <Property Name="size_code" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
+          <Property Name="tire_qty" Type="Int32" />
+          <Property Name="created_by" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="created_at" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="trn_kanban_productivity">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Guid" Nullable="false" />
+          <Property Name="factory_date" Type="DateTime" Precision="0" />
+          <Property Name="unit_id" Type="Byte" />
+          <Property Name="mc_id" Type="Byte" />
+          <Property Name="building_productivity" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="curing_productivity" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="cycle_time" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="created_by" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="created_at" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="RawData">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TransferDate" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="four_code" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="UnitWeight" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="trn_shipping_AKO_Info">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="CONSIGNEE_NAME" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LOADING_DATE" Type="DateTime" Precision="0" />
+          <Property Name="SHIPPING_INS_NO" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="CONSIGNEE_NAME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DOCK_NO" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="STORE_YEAR_WEEK" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
+          <Property Name="FACTORY_PART_NO6" Type="String" MaxLength="7" FixedLength="false" Unicode="false" />
+          <Property Name="PRODUCT_NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="MARKET_NM" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TICKET_NO" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
+          <Property Name="TIRE_BC" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="VEHICLE_NUMBER" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="LOADING_TIME" Type="DateTime" Precision="3" />
+          <Property Name="LOADING_WORKER" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="EANCODE" Type="String" MaxLength="13" FixedLength="true" Unicode="false" />
+          <Property Name="PRODUCTDATE" Type="DateTime" Precision="3" />
+          <Property Name="WEIGHT" Type="Int32" />
+          <Property Name="GAUGE" Type="Int32" />
+          <Property Name="SEND_FLG" Type="Byte" />
+          <Property Name="CREATED_BY" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="CREATED_AT" Type="DateTime" Precision="3" />
+          <Property Name="UPDATED_BY" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="UPDATED_AT" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="UsedRawData">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FactoryDate" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="MaterialCode" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="TotalWeight" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PCModelStoreContainer" CdmEntityContainer="PCEntities">
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="PCModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="trn_kanban_loss_comment">
+            <EntityTypeMapping TypeName="PCModel.trn_kanban_loss_comment">
+              <MappingFragment StoreEntitySet="trn_kanban_loss_comment">
+                <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+                <ScalarProperty Name="updated_by" ColumnName="updated_by" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="comment" ColumnName="comment" />
+                <ScalarProperty Name="department_id" ColumnName="department_id" />
+                <ScalarProperty Name="loss_id" ColumnName="loss_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="trn_kanban_loss_summary">
+            <EntityTypeMapping TypeName="PCModel.trn_kanban_loss_summary">
+              <MappingFragment StoreEntitySet="trn_kanban_loss_summary">
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="loss_percent" ColumnName="loss_percent" />
+                <ScalarProperty Name="loss_time" ColumnName="loss_time" />
+                <ScalarProperty Name="loss_name" ColumnName="loss_name" />
+                <ScalarProperty Name="mc_id" ColumnName="mc_id" />
+                <ScalarProperty Name="process_id" ColumnName="process_id" />
+                <ScalarProperty Name="unit_id" ColumnName="unit_id" />
+                <ScalarProperty Name="factory_date" ColumnName="factory_date" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="trn_kanban_machine_planned_loss">
+            <EntityTypeMapping TypeName="PCModel.trn_kanban_machine_planned_loss">
+              <MappingFragment StoreEntitySet="trn_kanban_machine_planned_loss">
+                <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+                <ScalarProperty Name="updated_by" ColumnName="updated_by" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="loss_time" ColumnName="loss_time" />
+                <ScalarProperty Name="size_code" ColumnName="size_code" />
+                <ScalarProperty Name="mc_no" ColumnName="mc_no" />
+                <ScalarProperty Name="unit_id" ColumnName="unit_id" />
+                <ScalarProperty Name="factory_date" ColumnName="factory_date" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="trn_kanban_machine_size_info">
+            <EntityTypeMapping TypeName="PCModel.trn_kanban_machine_size_info">
+              <MappingFragment StoreEntitySet="trn_kanban_machine_size_info">
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="tire_qty" ColumnName="tire_qty" />
+                <ScalarProperty Name="size_code" ColumnName="size_code" />
+                <ScalarProperty Name="cycle_time" ColumnName="cycle_time" />
+                <ScalarProperty Name="mc_no" ColumnName="mc_no" />
+                <ScalarProperty Name="unit_id" ColumnName="unit_id" />
+                <ScalarProperty Name="factory_date" ColumnName="factory_date" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="trn_kanban_productivity">
+            <EntityTypeMapping TypeName="PCModel.trn_kanban_productivity">
+              <MappingFragment StoreEntitySet="trn_kanban_productivity">
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="cycle_time" ColumnName="cycle_time" />
+                <ScalarProperty Name="curing_productivity" ColumnName="curing_productivity" />
+                <ScalarProperty Name="building_productivity" ColumnName="building_productivity" />
+                <ScalarProperty Name="mc_id" ColumnName="mc_id" />
+                <ScalarProperty Name="unit_id" ColumnName="unit_id" />
+                <ScalarProperty Name="factory_date" ColumnName="factory_date" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RawData">
+            <EntityTypeMapping TypeName="PCModel.RawData">
+              <MappingFragment StoreEntitySet="RawData">
+                <ScalarProperty Name="UnitWeight" ColumnName="UnitWeight" />
+                <ScalarProperty Name="four_code" ColumnName="four_code" />
+                <ScalarProperty Name="TransferDate" ColumnName="TransferDate" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="trn_shipping_AKO_Info">
+            <EntityTypeMapping TypeName="PCModel.trn_shipping_AKO_Info">
+              <MappingFragment StoreEntitySet="trn_shipping_AKO_Info">
+                <ScalarProperty Name="UPDATED_AT" ColumnName="UPDATED_AT" />
+                <ScalarProperty Name="UPDATED_BY" ColumnName="UPDATED_BY" />
+                <ScalarProperty Name="CREATED_AT" ColumnName="CREATED_AT" />
+                <ScalarProperty Name="CREATED_BY" ColumnName="CREATED_BY" />
+                <ScalarProperty Name="SEND_FLG" ColumnName="SEND_FLG" />
+                <ScalarProperty Name="GAUGE" ColumnName="GAUGE" />
+                <ScalarProperty Name="WEIGHT" ColumnName="WEIGHT" />
+                <ScalarProperty Name="PRODUCTDATE" ColumnName="PRODUCTDATE" />
+                <ScalarProperty Name="EANCODE" ColumnName="EANCODE" />
+                <ScalarProperty Name="LOADING_WORKER" ColumnName="LOADING_WORKER" />
+                <ScalarProperty Name="LOADING_TIME" ColumnName="LOADING_TIME" />
+                <ScalarProperty Name="VEHICLE_NUMBER" ColumnName="VEHICLE_NUMBER" />
+                <ScalarProperty Name="TIRE_BC" ColumnName="TIRE_BC" />
+                <ScalarProperty Name="TICKET_NO" ColumnName="TICKET_NO" />
+                <ScalarProperty Name="MARKET_NM" ColumnName="MARKET_NM" />
+                <ScalarProperty Name="PRODUCT_NAME" ColumnName="PRODUCT_NAME" />
+                <ScalarProperty Name="FACTORY_PART_NO6" ColumnName="FACTORY_PART_NO6" />
+                <ScalarProperty Name="STORE_YEAR_WEEK" ColumnName="STORE_YEAR_WEEK" />
+                <ScalarProperty Name="DOCK_NO" ColumnName="DOCK_NO" />
+                <ScalarProperty Name="CONSIGNEE_NAME" ColumnName="CONSIGNEE_NAME" />
+                <ScalarProperty Name="SHIPPING_INS_NO" ColumnName="SHIPPING_INS_NO" />
+                <ScalarProperty Name="LOADING_DATE" ColumnName="LOADING_DATE" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UsedRawData">
+            <EntityTypeMapping TypeName="PCModel.UsedRawData">
+              <MappingFragment StoreEntitySet="UsedRawData">
+                <ScalarProperty Name="TotalWeight" ColumnName="TotalWeight" />
+                <ScalarProperty Name="MaterialCode" ColumnName="MaterialCode" />
+                <ScalarProperty Name="FactoryDate" ColumnName="FactoryDate" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

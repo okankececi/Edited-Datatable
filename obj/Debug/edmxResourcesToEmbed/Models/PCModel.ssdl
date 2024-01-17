@@ -1,0 +1,209 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PCModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'PC.dbo.RawData' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="RawData">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TransferDate" Type="nchar" MaxLength="10" />
+    <Property Name="four_code" Type="varchar" MaxLength="4" />
+    <Property Name="UnitWeight" Type="nchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="trn_kanban_loss_comment">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="loss_id" Type="uniqueidentifier" />
+    <Property Name="department_id" Type="int" />
+    <Property Name="comment" Type="nvarchar(max)" />
+    <Property Name="created_by" Type="char" MaxLength="10" />
+    <Property Name="created_at" Type="datetime" />
+    <Property Name="updated_by" Type="char" MaxLength="10" />
+    <Property Name="updated_at" Type="datetime" />
+  </EntityType>
+  <EntityType Name="trn_kanban_loss_summary">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="factory_date" Type="date" />
+    <Property Name="unit_id" Type="tinyint" />
+    <Property Name="process_id" Type="tinyint" />
+    <Property Name="mc_id" Type="tinyint" />
+    <Property Name="loss_name" Type="nvarchar" MaxLength="255" />
+    <Property Name="loss_time" Type="int" />
+    <Property Name="loss_percent" Type="numeric" Precision="18" Scale="3" />
+    <Property Name="created_by" Type="char" MaxLength="10" />
+    <Property Name="created_at" Type="datetime" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6013: The table/view 'PC.dbo.trn_kanban_machine_avg_cycle_time' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="trn_kanban_machine_avg_cycle_time">
+          <Property Name="id" Type="uniqueidentifier" />
+          <Property Name="factory_date" Type="date" />
+          <Property Name="unit_id" Type="tinyint" />
+          <Property Name="mc_no" Type="tinyint" />
+          <Property Name="avg_cycle_time" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="created_by" Type="char" MaxLength="10" />
+          <Property Name="created_at" Type="datetime" />
+        </EntityType>-->
+  <EntityType Name="trn_kanban_machine_planned_loss">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="factory_date" Type="date" />
+    <Property Name="unit_id" Type="int" />
+    <Property Name="mc_no" Type="int" />
+    <Property Name="size_code" Type="char" MaxLength="5" />
+    <Property Name="loss_time" Type="int" />
+    <Property Name="created_by" Type="char" MaxLength="10" />
+    <Property Name="created_at" Type="datetime" />
+    <Property Name="updated_by" Type="char" MaxLength="10" />
+    <Property Name="updated_at" Type="datetime" />
+  </EntityType>
+  <EntityType Name="trn_kanban_machine_size_info">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="factory_date" Type="date" />
+    <Property Name="unit_id" Type="tinyint" />
+    <Property Name="mc_no" Type="tinyint" />
+    <Property Name="cycle_time" Type="int" />
+    <Property Name="size_code" Type="char" MaxLength="5" />
+    <Property Name="tire_qty" Type="int" />
+    <Property Name="created_by" Type="char" MaxLength="10" />
+    <Property Name="created_at" Type="datetime" />
+  </EntityType>
+  <EntityType Name="trn_kanban_productivity">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="factory_date" Type="date" />
+    <Property Name="unit_id" Type="tinyint" />
+    <Property Name="mc_id" Type="tinyint" />
+    <Property Name="building_productivity" Type="decimal" Precision="5" Scale="2" />
+    <Property Name="curing_productivity" Type="decimal" Precision="5" Scale="2" />
+    <Property Name="cycle_time" Type="decimal" Precision="5" Scale="2" />
+    <Property Name="created_by" Type="char" MaxLength="10" />
+    <Property Name="created_at" Type="datetime" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6013: The table/view 'PC.dbo.trn_loadingQuantity' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="trn_loadingQuantity">
+          <Property Name="Id" Type="uniqueidentifier" />
+          <Property Name="factoryDate" Type="date" />
+          <Property Name="targetTime" Type="char" MaxLength="12" />
+          <Property Name="tireCount" Type="int" />
+          <Property Name="created_by" Type="char" MaxLength="10" />
+          <Property Name="created_at" Type="datetime" />
+        </EntityType>-->
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'PC.dbo.trn_shipping_AKO_Info' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="trn_shipping_AKO_Info">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="CONSIGNEE_NAME" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="LOADING_DATE" Type="date" />
+    <Property Name="SHIPPING_INS_NO" Type="varchar" MaxLength="30" />
+    <Property Name="CONSIGNEE_NAME" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="DOCK_NO" Type="char" MaxLength="2" />
+    <Property Name="STORE_YEAR_WEEK" Type="char" MaxLength="4" />
+    <Property Name="FACTORY_PART_NO6" Type="varchar" MaxLength="7" />
+    <Property Name="PRODUCT_NAME" Type="nvarchar" MaxLength="200" />
+    <Property Name="MARKET_NM" Type="nvarchar" MaxLength="50" />
+    <Property Name="TICKET_NO" Type="varchar" MaxLength="9" />
+    <Property Name="TIRE_BC" Type="varchar" MaxLength="8" />
+    <Property Name="VEHICLE_NUMBER" Type="varchar" MaxLength="25" />
+    <Property Name="LOADING_TIME" Type="datetime" />
+    <Property Name="LOADING_WORKER" Type="varchar" MaxLength="8" />
+    <Property Name="EANCODE" Type="char" MaxLength="13" />
+    <Property Name="PRODUCTDATE" Type="datetime" />
+    <Property Name="WEIGHT" Type="int" />
+    <Property Name="GAUGE" Type="int" />
+    <Property Name="SEND_FLG" Type="tinyint" />
+    <Property Name="CREATED_BY" Type="varchar" MaxLength="10" />
+    <Property Name="CREATED_AT" Type="datetime" />
+    <Property Name="UPDATED_BY" Type="varchar" MaxLength="10" />
+    <Property Name="UPDATED_AT" Type="datetime" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'PC.dbo.UsedRawData' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="UsedRawData">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FactoryDate" Type="nchar" MaxLength="10" />
+    <Property Name="MaterialCode" Type="varchar" MaxLength="4" />
+    <Property Name="TotalWeight" Type="nchar" MaxLength="10" />
+  </EntityType>
+  <EntityContainer Name="PCModelStoreContainer">
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="trn_kanban_loss_comment" EntityType="Self.trn_kanban_loss_comment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="trn_kanban_loss_summary" EntityType="Self.trn_kanban_loss_summary" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="trn_kanban_machine_planned_loss" EntityType="Self.trn_kanban_machine_planned_loss" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="trn_kanban_machine_size_info" EntityType="Self.trn_kanban_machine_size_info" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="trn_kanban_productivity" EntityType="Self.trn_kanban_productivity" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RawData" EntityType="Self.RawData" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [RawData].[id] AS [id], 
+    [RawData].[TransferDate] AS [TransferDate], 
+    [RawData].[four_code] AS [four_code], 
+    [RawData].[UnitWeight] AS [UnitWeight]
+    FROM [dbo].[RawData] AS [RawData]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="trn_shipping_AKO_Info" EntityType="Self.trn_shipping_AKO_Info" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [trn_shipping_AKO_Info].[id] AS [id], 
+    [trn_shipping_AKO_Info].[LOADING_DATE] AS [LOADING_DATE], 
+    [trn_shipping_AKO_Info].[SHIPPING_INS_NO] AS [SHIPPING_INS_NO], 
+    [trn_shipping_AKO_Info].[CONSIGNEE_NAME] AS [CONSIGNEE_NAME], 
+    [trn_shipping_AKO_Info].[DOCK_NO] AS [DOCK_NO], 
+    [trn_shipping_AKO_Info].[STORE_YEAR_WEEK] AS [STORE_YEAR_WEEK], 
+    [trn_shipping_AKO_Info].[FACTORY_PART_NO6] AS [FACTORY_PART_NO6], 
+    [trn_shipping_AKO_Info].[PRODUCT_NAME] AS [PRODUCT_NAME], 
+    [trn_shipping_AKO_Info].[MARKET_NM] AS [MARKET_NM], 
+    [trn_shipping_AKO_Info].[TICKET_NO] AS [TICKET_NO], 
+    [trn_shipping_AKO_Info].[TIRE_BC] AS [TIRE_BC], 
+    [trn_shipping_AKO_Info].[VEHICLE_NUMBER] AS [VEHICLE_NUMBER], 
+    [trn_shipping_AKO_Info].[LOADING_TIME] AS [LOADING_TIME], 
+    [trn_shipping_AKO_Info].[LOADING_WORKER] AS [LOADING_WORKER], 
+    [trn_shipping_AKO_Info].[EANCODE] AS [EANCODE], 
+    [trn_shipping_AKO_Info].[PRODUCTDATE] AS [PRODUCTDATE], 
+    [trn_shipping_AKO_Info].[WEIGHT] AS [WEIGHT], 
+    [trn_shipping_AKO_Info].[GAUGE] AS [GAUGE], 
+    [trn_shipping_AKO_Info].[SEND_FLG] AS [SEND_FLG], 
+    [trn_shipping_AKO_Info].[CREATED_BY] AS [CREATED_BY], 
+    [trn_shipping_AKO_Info].[CREATED_AT] AS [CREATED_AT], 
+    [trn_shipping_AKO_Info].[UPDATED_BY] AS [UPDATED_BY], 
+    [trn_shipping_AKO_Info].[UPDATED_AT] AS [UPDATED_AT]
+    FROM [dbo].[trn_shipping_AKO_Info] AS [trn_shipping_AKO_Info]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="UsedRawData" EntityType="Self.UsedRawData" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [UsedRawData].[id] AS [id], 
+    [UsedRawData].[FactoryDate] AS [FactoryDate], 
+    [UsedRawData].[MaterialCode] AS [MaterialCode], 
+    [UsedRawData].[TotalWeight] AS [TotalWeight]
+    FROM [dbo].[UsedRawData] AS [UsedRawData]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+</Schema>

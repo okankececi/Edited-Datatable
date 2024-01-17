@@ -1,0 +1,163 @@
+﻿
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link hrf="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <style>
+        .dataTables_wrapper .dataTables_filter {
+            float: none;
+            text-align: left;
+            visibility: hidden;
+            display: none;
+        }
+
+        .dataTables_wrapper .dataTables_paginate {
+            display: none;
+        }
+
+        table.dataTable th,
+        table.dataTable td {
+            padding: 5px; /* Özelleştirmek istediğiniz boyutu ayarlayın */
+        }
+
+        .dataTables_length {
+            display: none;
+        }
+
+        .dataTables_info {
+            display: none;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="col-md-4" overflow: auto;">
+        <select id="unitSearchDropdown">
+            <option value="">Tüm Birimler</option>
+        </select>
+        <table border="1" id="example" class="display" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Unit ID</th>
+                    <th>Bölüm</th>
+                    <th>Mc</th>
+                    <th>Verimlilik</th>
+                    <th>ORT CT</th>
+                    <th>Curing verimlilik</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var result in Model)
+                {
+                    <tr>
+                        <td style="background-color:yellow;">@result.created_at</td>
+                        <td style="background-color:yellow;">@result.unit_id</td>
+                        <td>Building</td>
+                        <td style="background-color:yellow;">@result.mc_id</td>
+                        <td style="background-color:yellow;">@result.building_productivity</td>
+                        <td style="background-color:yellow;">@result.cycle_time</td>
+                        <td>@result.curing_productivity</td>
+
+                    </tr>
+
+                }
+            </tbody>
+
+        </table>
+    
+       
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script>
+        $('#example').DataTable({
+
+            columnDefs: [
+        {
+            target: 0,
+            visible: false,
+            searchable: false
+        },
+        {
+     target: 1,
+     visible: false,
+     searchable: true
+ },
+         {
+    target: 2,
+    visible: true,
+    searchable: false
+},
+         {
+    target: 3,
+    visible: true,
+    searchable: false
+},
+         {
+    target: 4,
+    visible: true,
+    searchable: false
+},
+         {
+    target: 5,
+    visible: true,
+    searchable: false
+},
+         {
+    target: 6,
+    visible: false,
+    searchable: false
+}
+
+
+    ],
+
+    lengthMenu: [4]
+            ,
+           initComplete: function () {
+    this.api()
+        .columns(1)
+        .every(function () {
+            var column = this;
+            var select = $('#unitSearchDropdown'); // Önceden oluşturulan dropdown
+
+            // Dropdown içeriğini temizle
+            select.empty();
+
+            // Dropdown'a tüm birimleri ekle
+            select.append('<option value="">Tüm Birimler</option>');
+
+            // Birimlerin listesini oluştur
+            column
+                .data()
+                .unique()
+                .sort()
+                .each(function (d, j) {
+                    select.append(
+                        '<option value="' + d + '">' + d + '</option>'
+                    );
+                });
+
+            // Dropdown seçimini dinle
+            select.on('change', function () {
+                var val = DataTable.util.escapeRegex($(this).val());
+
+                column
+                    .search(val ? '^' + val + '$' : '', true, false)
+                    .draw();
+            });
+        });
+}
+
+
+        });
+    </script>
+
+</body>
+
+</html>
